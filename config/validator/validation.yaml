@@ -1,0 +1,51 @@
+App\Entity\Location:
+  properties:
+    city:
+      - NotBlank:
+          message: "City cannot be blank."
+          groups: ['create', 'edit']
+    country:
+      - NotBlank:
+          message: "Country selection is required."
+          groups: ['create', 'edit']
+      - Choice:
+          choices: ["PL", "DE", "FR", "ES", "IT", "GB", "US"]
+          message: "Please select a valid country."
+          groups: ['create', 'edit']
+    latitude:
+      - NotBlank:
+          message: "Latitude cannot be blank."
+          groups: ['create', 'edit']
+      - Range:
+          min: -90
+          max: 90
+          notInRangeMessage: "Latitude must be between {{ min }} and {{ max }}."
+          groups: ['create', 'edit']
+    longitude:
+      - NotBlank:
+          message: "Longitude cannot be blank."
+          groups: ['create', 'edit']
+      - Range:
+          min: -180
+          max: 180
+          notInRangeMessage: "Longitude must be between {{ min }} and {{ max }}."
+          groups: ['create', 'edit']
+App\Entity\Measurement:
+  properties:
+    date:
+      - NotBlank:
+          message: "Date cannot be blank."
+          groups: [ 'create', 'edit' ]
+    celsius:
+      - NotBlank:
+          message: "Celsius temperature cannot be blank."
+          groups: [ 'create', 'edit' ]
+      - Range:
+          min: -100
+          max: 100
+          notInRangeMessage: "Celsius temperature must be between {{ min }} and {{ max }}."
+          groups: [ 'create', 'edit' ]
+    location:
+      - NotNull:
+          message: "Location must be selected."
+          groups: [ 'create', 'edit' ]
