@@ -46,6 +46,12 @@
                 </ul>
             </div>
         </div>
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ path('app_login') }}">Login</a>
+        {% endif %}
+
     </nav>
 {% endblock %}
 <body>
