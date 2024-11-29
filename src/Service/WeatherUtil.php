@@ -15,8 +15,9 @@ class WeatherUtil
 
     public function __construct(
         MeasurementRepository $measurementRepository,
-        LocationRepository $locationRepository
-    ) {
+        LocationRepository    $locationRepository
+    )
+    {
         $this->measurementRepository = $measurementRepository;
         $this->locationRepository = $locationRepository;
     }
@@ -29,12 +30,18 @@ class WeatherUtil
     /**
      * @return Measurement[]
      */
-    public function getWeatherForCountryAndCity(string $countryCode, string $city): array
+    public function getWeatherForCountryAndCity(string $countryCode, string $city): ?Location
     {
-        $location = $this->locationRepository->findBy([
+        $location = $this->locationRepository->findOneBy([
             'country' => $countryCode,
-            'name' => $city
-        ])[0];
-        return $this->getWeatherForLocation($location);
+            'city' => $city,
+        ]);
+
+        if (!$location) {
+            return null;
+        }
+
+        return $location;
+
     }
 }
